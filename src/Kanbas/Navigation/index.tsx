@@ -1,5 +1,6 @@
 export default function KanbasNavigation() {
     return (
+      <div id="wd-kanbas-navigation">
       <ul id="wd-kanbas-navigation">
         <li><a id="wd-neu-link" target="_blank" href="https://www.northeastern.edu/">Northeastern</a></li>
         <li><a id="wd-account-link" href="#/Kanbas/Account">Account</a></li>
@@ -8,7 +9,10 @@ export default function KanbasNavigation() {
         <li><a id="wd-calendar-link" href="#/Kanbas/Calendar">Calendar</a></li>
         <li><a id="wd-inbox-link" href="#/Kanbas/Inbox">Inbox</a></li>
         <li><a id="wd-labs-link" href="#/Labs">Labs</a></li>
+        <br />
       </ul>
+      <a id="wd-back-to-landing" href="/">Back to Landing</a>
+      </div>
 );}
   
   

@@ -7,7 +7,9 @@ export default function AssignmentEditor() {
         <label htmlFor="wd-assignment-name" className="form-label">
           Assignment Name
         </label>
-        <input id="wd-assignment-name" className="form-control" value="A1" />
+      </div>
+      <div id="name" className="mb-3">
+        <input id="assignmentName" className="form-control" value="A1" />
       </div>
 
       <div id="wd-assignment-description" className="mb-3">
@@ -15,6 +17,7 @@ export default function AssignmentEditor() {
           id="assignmentDescription"
           className="form-control"
           rows={8}
+          cols={80}
           defaultValue={`The assignment is available online.
 Submit a link to the landing page of your Web application running on Netlify.
 The landing page should include the following:
@@ -43,7 +46,7 @@ The Kanbas application should include a link to navigate back to the landing pag
             Assignment Group
           </label>
         </div>
-        <div className="col-sm-8">
+        <div className="col-sm-10">
           <select id="assignmentGroup" className="form-select">
             <option>ASSIGNMENTS</option>
             <option>Quizes</option>
@@ -82,8 +85,13 @@ The Kanbas application should include a link to navigate back to the landing pag
           </select>
         </div>
       </div>
-
-      <div className="mb-3">
+      
+      <div className="row mb-3">
+        <div className="col-sm-2">
+          <label htmlFor="entry-options" className="form-label">
+          </label>
+        </div>
+        <div className="col-sm-10">
         <label className="form-label">Online Entry Options</label>
         <div className="form-check">
           <input className="form-check-input" type="checkbox" id="textEntry" />
@@ -115,6 +123,7 @@ The Kanbas application should include a link to navigate back to the landing pag
             File Uploads
           </label>
         </div>
+        </div>
       </div>
 
       <div className="row mb-3">
@@ -135,26 +144,29 @@ The Kanbas application should include a link to navigate back to the landing pag
           </label>
         </div>
         <div className="col-sm-10">
-          <input type="datetime-local" className="form-control" id="dueDate" defaultValue="2024-05-13T23:59" />
+          <input type="datetime-local" className="form-control" id="dueDate" defaultValue="2024-05-13T00:00" />
         </div>
       </div>
-
+      
       <div className="row mb-3">
-        <div className="col-sm-2">
+        <div className="col-sm-6">
           <label htmlFor="availableFrom" className="form-label">
             Available from
           </label>
         </div>
-        <div className="col-sm-4">
-          <input type="datetime-local" className="form-control" id="availableFrom" defaultValue="2024-05-06T00:00" />
-        </div>
-        <div className="col-sm-2">
+        <div className="col-sm-6">
           <label htmlFor="availableUntil" className="form-label">
             Until
           </label>
         </div>
-        <div className="col-sm-4">
-          <input type="datetime-local" className="form-control" id="availableUntil" />
+      </div>
+
+      <div className="row mb-3">
+        <div className="col-sm-6">
+          <input type="datetime-local" className="form-control" id="availableFrom" defaultValue="2024-05-06T00:00" />
+        </div>
+        <div className="col-sm-6">
+          <input type="datetime-local" className="form-control" id="availableUntil" defaultValue="2024-05-16T00:00"/>
         </div>
       </div>
 
@@ -163,4 +175,5 @@ The Kanbas application should include a link to navigate back to the landing pag
         <button className="btn btn-danger">Save</button>
       </div>
     </div>
+  
 );}

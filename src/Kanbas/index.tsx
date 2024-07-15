@@ -7,7 +7,9 @@ import "./styles.css";
 export default function Kanbas() {
     return (
       <div id="wd-kanbas">
-        <KanbasNavigation />
+        <div className="d-noe d-md-block bg-black">
+          <KanbasNavigation />
+        </div>
         <div className="wd-main-content-offset p-3">
           <Routes>
             <Route path="/" element={<Navigate to="Dashboard" />} />

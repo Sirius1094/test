@@ -1,8 +1,17 @@
+import { useParams } from "react-router-dom";
+import { enrollments, users, assignments, grades } from "../../Database";
 import { FaFileImport, FaFileExport, FaCog, FaSearch, FaFilter } from 'react-icons/fa';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
 export default function Grades() {
+  const { cid } = useParams();
+
+  const courseEnrollments = enrollments.filter(enrollment => enrollment.course === cid);
+  const students = courseEnrollments.map(enrollment => users.find(user => user._id === enrollment.user));
+
+  const courseAssignments = assignments.filter(assignment => assignment.course === cid);
+
   return (
     <div className="container mt-3">
       <div className="d-flex justify-content-between align-items-center mb-3">
@@ -87,75 +96,24 @@ export default function Grades() {
         <thead>
           <tr>
             <th>Student Name</th>
-            <th>A1 SETUP <br /> <small>Out of 100</small></th>
-            <th>A2 HTML <br /> <small>Out of 100</small></th>
-            <th>A3 CSS <br /> <small>Out of 100</small></th>
-            <th>A4 BOOTSTRAP <br /> <small>Out of 100</small></th>
+            {courseAssignments.map(assignment => (
+              <th key={assignment._id}>{assignment.title} <br /> <small>Out of 100</small></th>
+            ))}
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td className="text-danger">Jane Adams</td>
-            <td>100%</td>
-            <td>96.67%</td>
-            <td>92.18%</td>
-            <td>66.22%</td>
-          </tr>
-          <tr>
-            <td className="text-danger">Christina Allen</td>
-            <td>100%</td>
-            <td>100%</td>
-            <td>100%</td>
-            <td>100%</td>
-          </tr>
-          <tr>
-            <td className="text-danger">Samreen Ansari</td>
-            <td>100%</td>
-            <td>100%</td>
-            <td>100%</td>
-            <td>100%</td>
-          </tr>
-          <tr>
-            <td className="text-danger">Han Bao</td>
-            <td>100%</td>
-            <td>100%</td>
-            <td>
-              <input
-                type="text"
-                className="form-control"
-                defaultValue="88.03%"
-              />
-            </td>
-            <td>98.99%</td>
-          </tr>
-          <tr>
-            <td className="text-danger">Mahi Sai Srinivas Bobbili</td>
-            <td>100%</td>
-            <td>96.67%</td>
-            <td>98.37%</td>
-            <td>100%</td>
-          </tr>
-          <tr>
-            <td className="text-danger">Siran Cao</td>
-            <td>100%</td>
-            <td>100%</td>
-            <td>100%</td>
-            <td>100%</td>
-          </tr>
-          <tr>
-            <td className="text-danger">Kathryn Chalmers</td>
-            <td>100%</td>
-            <td>100%</td>
-            <td>98.5%</td>
-            <td>100%</td>
-          </tr>
-          <tr>
-            <td className="text-danger">Chih-Yang Chen</td>
-            <td>100%</td>
-            <td>81.67%</td>
-            <td>79.93%</td>
-            <td>54.46%</td>
-          </tr>
+          {students.map(student => {
+            if (!student) return null;
+            return (
+              <tr key={student._id}>
+                <td className="text-danger">{`${student.firstName} ${student.lastName}`}</td>
+                {courseAssignments.map(assignment => {
+                  const gradeRecord = grades.find(grade => grade.student === student._id && grade.assignment === assignment._id);
+                  return <td key={assignment._id}>{gradeRecord ? `${gradeRecord.grade}%` : 'N/A'}</td>;
+                })}
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>

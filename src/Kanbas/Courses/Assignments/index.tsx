@@ -1,17 +1,27 @@
 import { BsGripVertical } from "react-icons/bs";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { MdOutlineAssignment, MdCheckCircle } from "react-icons/md";
-import { FaEllipsisV } from "react-icons/fa";
+import { FaEllipsisV, FaTrash } from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import AssignmentControlButton from "./AssignmentControl";
 import AssignmentButton from "./AssignmentButton";
-import { useParams } from "react-router";
-import * as db from "../../Database";
+import { useParams, useNavigate } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteAssignment } from "./reducer";
+import { RootState } from "../../store";
+import { format } from 'date-fns';
 
 export default function Assignments() {
-  const { cid } = useParams();
-  const assignments = db.assignments;
+  const { cid } = useParams<{ cid: string }>();
+  const assignments = useSelector((state: RootState) => state.assignmentsReducer.assignments);
+  const dispatch = useDispatch();
+
+  const handleDelete = (id: string) => {
+    if (window.confirm("Are you sure you want to delete this assignment?")) {
+      dispatch(deleteAssignment(id));
+    }
+  };
 
   return (
     <div id="wd-assignments">
@@ -28,7 +38,7 @@ export default function Assignments() {
                 <BsGripVertical className="me-2 fs-3" />
                 <IoMdArrowDropdown className="me-2 fs-3" />
                 {assignment.title}
-                <AssignmentButton />
+                <AssignmentButton assignmentId={assignment._id} deleteAssignment={handleDelete} />
               </div>
               <ul id="wd-assignments-list" className="list-group rounded-0">
                 <li className="list-group-item p-3 d-flex justify-content-between align-items-center" key={assignment._id}>
@@ -41,20 +51,20 @@ export default function Assignments() {
                           {assignment.title}
                         </a>
                       </h6>
-                      <small style={{ color: "#a50c0c" }}>Multiple Modules</small>
+                      <small style={{ color: "#a50c0c" }}>{"Multiple Modules"}</small>
                       <small className="text-muted">
                         {" | "}
                         <span style={{ color: "#6c757d", fontWeight: "bold" }}>
                           Not available until
                         </span>{" "}
-                        May 6 at 12:00am
+                        {assignment.availableDate ? format(new Date(assignment.availableDate), 'PPP p') : 'N/A'}
                       </small>
                       <br />
                       <small className="text-muted">
                         <span style={{ color: "#6c757d", fontWeight: "bold" }}>
                           Due
                         </span>{" "}
-                        May 13 at 11:59pm | 100 pts
+                        {assignment.dueDate ? format(new Date(assignment.dueDate), 'PPP p') : 'N/A'} | {assignment.points} pts
                       </small>
                     </div>
                   </div>

@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { addAssignment, updateAssignment, Assignment } from "./reducer";
 import { RootState } from "../../store";
 import { useState, useEffect, ChangeEvent } from "react";
+import * as client from "./client";
 import "./index.css";
 
 export default function AssignmentEditor() {
@@ -37,11 +38,13 @@ export default function AssignmentEditor() {
     }));
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (existingAssignment) {
+      await client.updateAssignment(assignment);
       dispatch(updateAssignment(assignment));
     } else {
-      dispatch(addAssignment({ ...assignment, course: cid || "" }));
+      const newAssignment = await client.createAssignment(cid as string, assignment);
+      dispatch(addAssignment(newAssignment));
     }
     navigate(`/Kanbas/Courses/${cid}/Assignments`);
   };

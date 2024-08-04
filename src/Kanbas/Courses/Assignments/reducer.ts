@@ -16,13 +16,16 @@ interface AssignmentsState {
 }
 
 const initialState: AssignmentsState = {
-  assignments: dbAssignments,
+  assignments: [],
 };
 
 const assignmentsSlice = createSlice({
   name: 'assignments',
   initialState,
   reducers: {
+    setAssignments: (state, action: PayloadAction<Assignment[]>) => {
+      state.assignments = action.payload;
+    },
     addAssignment: (state, action: PayloadAction<Assignment>) => {
       const newAssignment = {
         ...action.payload,
@@ -46,5 +49,5 @@ const assignmentsSlice = createSlice({
   },
 });
 
-export const { addAssignment, deleteAssignment, updateAssignment } = assignmentsSlice.actions;
+export const { setAssignments, addAssignment, deleteAssignment, updateAssignment } = assignmentsSlice.actions;
 export default assignmentsSlice.reducer;

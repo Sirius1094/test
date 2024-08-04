@@ -6,9 +6,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import AssignmentControlButton from "./AssignmentControl";
 import AssignmentButton from "./AssignmentButton";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
+import * as client from "./client";
+import { setAssignments, addAssignment, deleteAssignment, updateAssignment } from "./reducer";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteAssignment } from "./reducer";
 import { RootState } from "../../store";
 import { format } from 'date-fns';
 
@@ -16,10 +18,35 @@ export default function Assignments() {
   const { cid } = useParams<{ cid: string }>();
   const assignments = useSelector((state: RootState) => state.assignmentsReducer.assignments);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const fetchAssignments = async () => {
+    const assignments = await client.findAssignmentsForCourse(cid as string);
+    dispatch(setAssignments(assignments));
+  };
+
+  useEffect(() => {
+    fetchAssignments();
+  }, []);
+
+  const createAssignment = async (assignment: any) => {
+    const newAssignment = await client.createAssignment(cid as string, assignment);
+    dispatch(addAssignment(newAssignment));
+  };
+
+  const removeAssignment = async (assignmentId: string) => {
+    await client.deleteAssignment(assignmentId);
+    dispatch(deleteAssignment(assignmentId));
+  };
+
+  const saveAssignment = async (assignment: any) => {
+    await client.updateAssignment(assignment);
+    dispatch(updateAssignment(assignment));
+  };
 
   const handleDelete = (id: string) => {
     if (window.confirm("Are you sure you want to delete this assignment?")) {
-      dispatch(deleteAssignment(id));
+      removeAssignment(id);
     }
   };
 

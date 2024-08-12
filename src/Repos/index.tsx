@@ -9,6 +9,7 @@ export default function Repos() {
                 <li><a id="wd-a3" target="_blank" href="https://github.com/Sirius1094/kanbas-react-web-app/tree/a3">Assignment 3 - Github</a></li>
                 <li><a id="wd-a4" target="_blank" href="https://github.com/Sirius1094/kanbas-react-web-app/tree/a4">Assignment 4 - Github</a></li>
                 <li><a id="wd-a5" target="_blank" href="https://github.com/Sirius1094/kanbas-react-web-app/tree/a5">Assignment 5 - Github</a></li>
+                <li><a id="wd-a5" target="_blank" href="https://github.com/Sirius1094/kanbas-react-web-app/tree/a6">Assignment 6 - Github</a></li>
                 <br />
             </ul>
             <a id="wd-back-to-landing" href="/">Back to Landing Page</a>

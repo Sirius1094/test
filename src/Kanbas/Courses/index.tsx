@@ -1,21 +1,39 @@
+import React, { useState, useEffect } from "react";
 import CoursesNavigation from "./Navigation";
+import { Navigate, Route, Routes, useLocation, useParams } from "react-router";
+import * as client from "./client";
 import Modules from "./Modules";
 import Home from "./Home";
 import Assignments from "./Assignments";
 import AssignmentEditor from "./Assignments/Editor";
-import { Navigate, Route, Routes, useLocation, useParams } from "react-router";
 import Grades from "./Grades";
-import { FaAlignJustify } from "react-icons/fa";
+import PeopleTable from "./People/Table";
+import { useDispatch } from "react-redux";
+import { setCourses } from "./reducer";
 
-export default function Courses({ courses }: { courses: any[]; }) {
+export default function Courses() {
   const { cid } = useParams();
-  const course = courses.find((course) => course._id === cid);
+  const [course, setCourse] = useState<any>({});
+  const dispatch = useDispatch();
+
+  const fetchCourses = async () => {
+    const coursesData = await client.fetchAllCourses();
+    dispatch(setCourses(coursesData));
+    const currentCourse = coursesData.find((c: { _id: string | undefined; }) => c._id === cid);
+    setCourse(currentCourse);
+  };
+
+  useEffect(() => {
+    fetchCourses();
+  }, [cid]);
+
   const { pathname } = useLocation();
+
+  const courseId = cid ? cid : "";
 
   return (
     <div id="wd-courses">
       <h2 className="text-danger">
-        <FaAlignJustify className="me-4 fs-4 mb-1" />
         {course && course.name} &gt; {pathname.split("/")[4]}
       </h2>
       <hr />
@@ -27,12 +45,15 @@ export default function Courses({ courses }: { courses: any[]; }) {
           <Routes>
             <Route path="/" element={<Navigate to="Home" />} />
             <Route path="Home" element={<Home />} />
-            <Route path="Modules" element={<Modules />} />
+            <Route path="Modules" element={<Modules courseId={courseId} />} />
             <Route path="Assignments" element={<Assignments />} />
             <Route path="Assignments/:aid" element={<AssignmentEditor />} />
             <Route path="Grades" element={<Grades />} />
+            <Route path="People" element={<PeopleTable />} />
+            <Route path="People/:uid" element={<PeopleTable />} />
           </Routes>
         </div>
       </div>
     </div>
-);}
+  );
+}

@@ -8,7 +8,7 @@ function WorkingWithObjects() {
     completed: false,
     score: 0,
   });
-  const ASSIGNMENT_URL = "http://localhost:4000/a5/assignment";
+  const ASSIGNMENT_URL = "https://kanbas-node-server-app-f85f.onrender.com/a5/assignment";
 
   return (
     <div>
@@ -23,7 +23,7 @@ function WorkingWithObjects() {
         value={assignment.title}/>
 
       <h4>Retrieving Objects</h4>
-      <a href="http://localhost:4000/a5/assignment">Get Assignment</a>
+      <a href="https://kanbas-node-server-app-f85f.onrender.com/a5/assignment">Get Assignment</a>
     </div>
   );
 }

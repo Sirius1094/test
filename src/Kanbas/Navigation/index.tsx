@@ -19,7 +19,6 @@ export default function KanbasNavigation() {
         { label: "Studio",     path: "/Kanbas/Studio",     icon: MdMovieFilter },
         { label: "Help",     path: "/Kanbas/Help",     icon: IoIosHelpCircle },
         { label: "Labs",      path: "/Labs",             icon: LiaCogSolid },
-        { label: "Landing Page", path: "/",              icon: FaHome },
       ];
     
     return (

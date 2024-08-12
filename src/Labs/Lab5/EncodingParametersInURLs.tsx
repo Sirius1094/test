@@ -9,11 +9,11 @@ export default function EncodingParametersInURLs() {
         <input type="number" value={a} onChange={(e) => setA(e.target.value)} />
         <input type="number" onChange={(e) => setB(e.target.value)} value={b} />
         <h3>Path Parameters</h3>
-        <a href={`http://localhost:4000/a5/add/${a}/${b}`}>
+        <a href={`https://kanbas-node-server-app-f85f.onrender.com/a5/add/${a}/${b}`}>
           Add {a} + {b}
         </a>
         <br />
-        <a href={`http://localhost:4000/a5/subtract/${a}/${b}`}>
+        <a href={`https://kanbas-node-server-app-f85f.onrender.com/a5/subtract/${a}/${b}`}>
           Substract {a} - {b}
         </a>
       </div>

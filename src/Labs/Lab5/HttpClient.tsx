@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import * as client from "./client";
 
-const REMOTE_SERVER = process.env.REACT_APP_REMOTE_SERVER;
+const REMOTE_SERVER = "https://kanbas-node-server-app-f85f.onrender.com";
 export default function HttpClient() {
   const [welcomeOnClick, setWelcomeOnClick] = useState("");
   const fetchWelcomeOnClick = async () => {

@@ -12,7 +12,7 @@ export default function Lab5() {
       <HttpClient />
       <div className="list-group">
         <a
-          href="http://localhost:4000/lab5/welcome"
+          href="https://kanbas-node-server-app-f85f.onrender.com/lab5/welcome"
           className="list-group-item"
         >
           Welcome

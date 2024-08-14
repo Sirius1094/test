@@ -11,27 +11,29 @@ export default function WorkingWithArrays() {
   });
 
   const updateCompleted = async () => {
-    const response = await fetch(
-      `${API}/${todo.id}/completed/${todo.completed}`,
-      {
-        method: "POST",
-      }
-    );
+    const response = await fetch(`${API}/${todo.id}/completed`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ completed: todo.completed }),
+    });
     const data = await response.json();
     console.log(data);
   };
-
+  
   const updateDescription = async () => {
-    const response = await fetch(
-      `${API}/${todo.id}/description/${todo.description}`,
-      {
-        method: "POST",
-      }
-    );
+    const response = await fetch(`${API}/${todo.id}/description`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ description: todo.description }),
+    });
     const data = await response.json();
     console.log(data);
   };
-
+  
   return (
     <div id="wd-working-with-arrays">
       <h3>Working with Arrays</h3>

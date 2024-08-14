@@ -1,5 +1,6 @@
 import axios from "axios";
 const REMOTE_SERVER = "https://kanbas-node-server-app-f85f.onrender.com";
+
 export const fetchWelcomeMessage = async () => {
   const response = await axios.get(`${REMOTE_SERVER}/lab5/welcome`);
   return response.data;
